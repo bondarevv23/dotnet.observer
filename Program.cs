@@ -1,6 +1,7 @@
-﻿using Microsoft.Build.Construction;
+﻿using Microsoft.Build.Locator;
+using Microsoft.Build.Construction;
 
-internal class Program
+public class Program
 {
     private static bool ValidateArgs(string[] args)
     {
@@ -44,6 +45,12 @@ internal class Program
     
     public static void Main(string[] args)
     {
+        var instance = MSBuildLocator.RegisterDefaults();
+        
+        Console.WriteLine($"MSBuild Instance Found:");
+        Console.WriteLine($"  Version: {instance.Version}");
+        Console.WriteLine($"  Path: {instance.MSBuildPath}");
+        
         if (!ValidateArgs(args)) return;
         
         var solutionPath = args[0];
